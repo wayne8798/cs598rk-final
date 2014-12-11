@@ -1,1 +1,2 @@
-Please upload video files here.
+Video folder.
+
