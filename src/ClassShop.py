@@ -115,4 +115,3 @@ class VideoKit:
 			print "Success: "+tiLabel+" video to images completed!"
 		else:
 			print "Failure: "+tiLabel+" frame count error!"
-
