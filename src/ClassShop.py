@@ -96,9 +96,11 @@ class VideoKit:
 		if nSec == -1:
 			outputDir = self.vidDir+'../imgs/'+self.vidName.split('.')[0]+'/'
 			nFrame = 1
+			tiLabel = "["+self.vidName+" / frame]"
 		else:
 			outputDir = self.vidDir+'../imgs/'+self.vidName.split('.')[0]+str(nSec)+'/'
 			nFrame = nSec*self.getFPS()
+			tiLabel = "["+self.vidName+" / "+str(nSec)+"sec]"
 		if not os.path.isdir(outputDir):
 			os.mkdir(outputDir)
 		success,image = self.vidcap.read()
@@ -110,7 +112,7 @@ class VideoKit:
 			count += 1
 		self.vidcap = cv2.VideoCapture(self.vidDir+self.vidName)
 		if count == self.getFrameCount():
-			print "Success: video to images completed!"
+			print "Success: "+tiLabel+" video to images completed!"
 		else:
-			print "Failure: frame count error!"
+			print "Failure: "+tiLabel+" frame count error!"
 
