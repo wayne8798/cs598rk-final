@@ -1,6 +1,7 @@
 import os, cv2
 import cv2.cv as cv
 from numpy import *
+from PIL import Image
 
 class ImageKit:
 	def __init__(self, imgpath):
@@ -65,6 +66,44 @@ class ImageKit:
 						return False
 		return True
 
+	def detectFace(self):
+		cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
+		return cascade.detectMultiScale(self.img, 1.3, 4, cv.CV_HAAR_SCALE_IMAGE, (20,20))
+
+	def getNfaces(self):
+		return len(self.detectFace())
+
+	def getFaceCenters(self):
+		faceCenters = []
+		faces = self.detectFace()
+		for i in range(len(faces)):
+			cface = faces[i]
+			faceCenters.append((cface[0]+cface[2]/2, cface[1]+cface[3]/2))
+		return faceCenters
+
+	def getFaceAreas(self):
+		faceAreas = []
+		faces = self.detectFace()
+		for i in range(len(faces)):
+			cface = faces[i]
+			faceAreas.append(cface[2]*cface[3])
+		return faceAreas
+
+	def sortedColors(self):
+		PILimg = Image.open(self.imgDir+self.imgName)
+		w,h = PILimg.size
+		return sorted(PILimg.getcolors(w*h), key=lambda count: count[0], reverse=True)
+
+	def getDominantColors(self, Ndomcolor=10):
+		return self.sortedColors()[0:Ndomcolor]
+
+	def isGrayscale(self, threshold=10):
+		domColors = self.getDominantColors(10)
+		for i in range(len(domColors)):
+			c = domColors[i][1]
+			if abs(c[0]-c[1])>threshold or abs(c[1]-c[2])>threshold or abs(c[2]-c[0])>threshold:
+				return False
+		return True
 
 class VideoKit:
 	def __init__(self, vidpath):
