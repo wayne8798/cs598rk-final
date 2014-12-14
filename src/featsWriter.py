@@ -1,8 +1,8 @@
 import os, sys
 from ClassShop import *
 
-#T = 1
-T = 10
+T = 1
+#T = 10
 if len(sys.argv) < 2:
 	print "Error: input video directory not specified!"
 else:
