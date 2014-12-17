@@ -12,12 +12,12 @@ with open('../data/feats/allvids_auto.arff', 'rb') as f:
 vmanu = []
 with open('../data/feats/allvids_manu.csv', 'rb') as f:
 	for row in f:
-		if not 'ID' in row:
+		if not '#' in row:
 			vmanu.append(row)
 
 with open('../data/feats/allvids_all.arff', 'wb') as f:
 	f.write("@relation allvids*allfeats\n")
-	f.write("@attribute id NUMERIC\n")
+	#f.write("@attribute id NUMERIC\n")
 	f.write("@attribute letterfcount NUMERIC\n")
 	f.write("@attribute digitfcount NUMERIC\n")
 	f.write("@attribute spcharfcount NUMERIC\n")
